@@ -1,5 +1,6 @@
 package md.test_spring.calculator.service;
 
+import md.test_spring.calculator.exceptions.DivideException;
 import md.test_spring.calculator.interfaces.CalculatorService;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,10 @@ public class CalculatorServiceImpl implements CalculatorService {
 
     @Override
     public Double divideNumbers(Integer num1, Integer num2) {
-        return (double) (num1 / num2);
+        if (num2 == 0) {
+            throw new DivideException("Division by 0 is prohibited");
+        }
+
+        return (double) num1 / num2;
     }
 }

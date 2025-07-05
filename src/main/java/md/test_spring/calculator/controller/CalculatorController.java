@@ -1,6 +1,5 @@
 package md.test_spring.calculator.controller;
 
-import lombok.RequiredArgsConstructor;
 import md.test_spring.calculator.interfaces.CalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/calculator")
-//@RequiredArgsConstructor
 public class CalculatorController {
 
     @Autowired
-    private final CalculatorService calculatorService;
+    CalculatorService calculatorService;
 
-    CalculatorController(CalculatorService calculatorService){
-        this.calculatorService = calculatorService;
-    }
 
     @GetMapping()
     public String greeting() {
@@ -59,10 +54,7 @@ public class CalculatorController {
         if (validationMessage != null) {
             return validationMessage;
         }
-        if (num2 == 0) {
-            return "Деление на 0 запрещенно, пожалуйста измените параметры так чтобы num2 не был равен 0";
-        }
-        return String.format("%d / %d = %f", num1, num2, calculatorService.divideNumbers(num1, num2));
+        return String.format("%d / %d = %.2f", num1, num2, calculatorService.divideNumbers(num1, num2));
     }
 
     private String checkNumbers(Integer firstNumber, Integer secondNumber) {
